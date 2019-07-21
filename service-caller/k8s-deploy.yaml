@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: service-caller
+  name: service-caller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-caller
+  template:
+    metadata:
+      labels:
+        app: service-caller
+    spec:
+      containers:
+      - image: gcr.io/laputa/service-caller
+        name: service-caller
+        env:
+        - name: CALLEE_URL
+          value: http://service-callee

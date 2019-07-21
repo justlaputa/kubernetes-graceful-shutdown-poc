@@ -1,0 +1,15 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+metadata:
+  name: kubernetes-graceful-shutdown-poc
+build:
+  artifacts:
+  - image: gcr.io/laputa/service-callee
+    context: ./service-callee
+  - image: gcr.io/laputa/service-caller
+    context: ./service-caller
+deploy:
+  kubectl:
+    manifests:
+    - ./service-callee/k8s-*.yaml
+    - ./service-caller/k8s-*.yaml

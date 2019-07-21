@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: service-callee
+  name: service-callee
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-callee
+  template:
+    metadata:
+      labels:
+        app: service-callee
+    spec:
+      containers:
+      - image: gcr.io/laputa/service-callee
+        name: service-callee
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: service-callee
+  name: service-callee
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: service-callee
+  type: ClusterIP
