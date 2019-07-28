@@ -15,7 +15,7 @@ spec:
         app: service-callee
     spec:
       containers:
-      - image: gcr.io/laputa/service-callee
+      - image: gcr.io/laputa/service-callee:22a0615-dirty
         name: service-callee
 ---
 apiVersion: v1

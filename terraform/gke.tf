@@ -5,10 +5,12 @@ provider "google-beta" {
 }
 
 resource "google_container_cluster" "primary" {
-  provider           = "google-beta"
-  name               = "graceful-shutdown-poc"
-  location           = "${var.gke_location}"
-  initial_node_count = 3
+  provider = "google-beta"
+  name     = "graceful-shutdown-poc"
+  location = "${var.gke_location}"
+
+  remove_default_node_pool = true
+  initial_node_count       = 1
 
   master_auth {
     username = ""
@@ -33,17 +35,34 @@ resource "google_container_cluster" "primary" {
     }
   }
 
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+}
+
+resource "google_container_node_pool" "primary_preemptible_nodes" {
+  provider   = "google-beta"
+  name       = "primary-node-pool"
+  location   = "${var.gke_location}"
+  cluster    = "${google_container_cluster.primary.name}"
+  node_count = 0
+
   node_config {
+    preemptible  = true
     machine_type = "g1-small"
 
     metadata = {
       disable-legacy-endpoints = "true"
     }
 
-  }
-
-  timeouts {
-    create = "30m"
-    update = "40m"
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/service.management.readonly",
+      "https://www.googleapis.com/auth/servicecontrol",
+      "https://www.googleapis.com/auth/trace.append",
+    ]
   }
 }

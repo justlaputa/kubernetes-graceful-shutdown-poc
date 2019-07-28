@@ -12,6 +12,17 @@ app.get('/health', (req, res) => {
   res.send('ok')
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log('%s server started on :%d', APP_NAME, PORT)
+})
+
+process.on('SIGTERM', () => {
+  const now = new Date().toISOString()
+  console.log('%s: received SIGTERM', now)
+
+  console.log('calling server close')
+  server.close(() => {
+    console.log('%s: server closed, exit', new Date().toISOString())
+    process.exit(0)
+  })
 })

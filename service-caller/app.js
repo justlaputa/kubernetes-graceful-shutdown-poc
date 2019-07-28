@@ -12,11 +12,9 @@ const apiClient = axios.create({
   baseURL: CALLEE_URL
 })
 
-let timer = null
-
 function start() {
   const interval = Math.floor(1000 / REQUEST_RATE)
-  timer = setInterval(calling, interval)
+  setInterval(calling, interval)
 
   console.log('%s server starts calling callee on %s', APP_NAME, CALLEE_URL)
 }
@@ -24,13 +22,17 @@ function start() {
 async function calling() {
   try {
     const resp = await apiClient.get('/api/ok')
-    console.log('got response: %d: %s', resp.status, resp.data)
+    const now = new Date().toISOString()
+    console.log('%s: got response: %d: %s', now, resp.status, resp.data)
   } catch (error) {
+    const now = new Date().toISOString()
+
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       console.log(
-        'err: %s: got non 2xx response: %s',
+        'now: err: %s: got non 2xx response: %s',
+        now,
         error.code,
         error.response.status
       )
@@ -41,13 +43,14 @@ async function calling() {
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
       console.log(
-        'err: %s: request was made, but no response received: %s',
+        '%s: err: %s: request was made, but no response received: %s',
+        now,
         error.code,
         error.message
       )
     } else {
       // Something happened in setting up the request that triggered an Error
-      console.log('err: %s: %s', error.code, error.message)
+      console.log('%s: err: %s: %s', now, error.code, error.message)
     }
   }
 }
