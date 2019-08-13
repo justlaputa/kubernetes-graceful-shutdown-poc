@@ -15,10 +15,12 @@ spec:
         app: service-caller
     spec:
       containers:
-      - image: gcr.io/laputa/service-caller:22a0615-dirty
+      - image: gcr.io/laputa/service-caller
         name: service-caller
         env:
         - name: CALLEE_URL
           value: http://service-callee
         - name: REQUEST_RATE
           value: "10"
+        - name: CLIENT_TIMEOUT
+          value: "2000"

@@ -5,7 +5,7 @@ metadata:
     app: service-callee
   name: service-callee
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: service-callee
@@ -15,8 +15,17 @@ spec:
         app: service-callee
     spec:
       containers:
-      - image: gcr.io/laputa/service-callee:22a0615-dirty
+      - image: gcr.io/laputa/service-callee
         name: service-callee
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 1
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 1
 ---
 apiVersion: v1
 kind: Service
