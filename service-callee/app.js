@@ -1,8 +1,6 @@
 const express = require('express')
-const ip = require('ip')
 
 const app = express()
-const myAddress = ip.address()
 
 const PORT = process.env.PORT || 3000
 const APP_NAME = 'callee'
@@ -14,7 +12,7 @@ app.get('/api/ok', (req, res) => {
 
 app.get('/health', (req, res) => {
   if (app.locals.shutdown) {
-    res.status(404).end()
+    res.status(400).end()
     return
   }
 
@@ -23,7 +21,6 @@ app.get('/health', (req, res) => {
 
 const server = app.listen(PORT, () => {
   console.log('%s server started on :%d', APP_NAME, PORT)
-  console.log('ip address of this server: %s', myAddress)
 })
 
 process.on('SIGTERM', () => {
