@@ -23,4 +23,4 @@ spec:
         - name: REQUEST_RATE
           value: "10"
         - name: CLIENT_TIMEOUT
-          value: "10"
+          value: "2"
