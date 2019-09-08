@@ -33,8 +33,6 @@ async function calling() {
         error.code,
         error.response.status
       )
-      console.error(error.response.headers)
-      console.error(error.response.data)
     } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
