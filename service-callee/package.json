@@ -8,7 +8,7 @@
     "ip": "^1.1.5"
   },
   "devDependencies": {
-    "eslint": "^6.1.0"
+    "eslint": "^6.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
