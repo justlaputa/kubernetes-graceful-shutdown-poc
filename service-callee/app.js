@@ -4,7 +4,7 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 const APP_NAME = 'callee'
-const WAIT_BEFORE_SERVER_CLOSE = process.env.WAIT_BEFORE_SERVER_CLOSE || 1000
+const WAIT_BEFORE_SERVER_CLOSE = parseInt(process.env.WAIT_BEFORE_SERVER_CLOSE) || 0
 
 app.get('/api/ok', (req, res) => {
   res.send('ok')
@@ -27,7 +27,7 @@ process.on('SIGTERM', () => {
   console.log('received SIGTERM')
   app.locals.shutdown = true
 
-  console.log('waiting for %d sec to close server', WAIT_BEFORE_SERVER_CLOSE/1000)
+  console.log('waiting for %d sec to close server', WAIT_BEFORE_SERVER_CLOSE)
 
   setTimeout(() => {
     console.log('calling server close')
@@ -36,5 +36,5 @@ process.on('SIGTERM', () => {
       console.log('server closed, exit')
       process.exit(0)
     })
-  }, WAIT_BEFORE_SERVER_CLOSE)
+  }, WAIT_BEFORE_SERVER_CLOSE*1000)
 })

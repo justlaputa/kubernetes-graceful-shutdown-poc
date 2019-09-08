@@ -2,29 +2,28 @@ const axios = require('axios')
 
 const APP_NAME = 'caller'
 
-//callee's server url
 const CALLEE_URL = process.env.CALLEE_URL || 'http://localhost:3000'
-const CLIENT_TIMEOUT = process.env.CLIENT_TIMEOUT || 2000
 
 //number of request per second caller should call the callee's api
-const REQUEST_RATE = process.env.REQUEST_RATE || 1
+const REQUEST_RATE = parseInt(process.env.REQUEST_RATE) || 10
+const CLIENT_TIMEOUT = parseInt(process.env.CLIENT_TIMEOUT) || 2
 
 const apiClient = axios.create({
   baseURL: CALLEE_URL,
-  timeout: CLIENT_TIMEOUT,
+  timeout: CLIENT_TIMEOUT*1000,
 })
 
 function start() {
   const interval = Math.floor(1000 / REQUEST_RATE)
   setInterval(calling, interval)
 
-  console.log('%s server starts calling callee on %s', APP_NAME, CALLEE_URL)
+  console.log('%s server starts calling callee on %s, with request rate: %d rps',
+    APP_NAME, CALLEE_URL, REQUEST_RATE)
 }
 
 async function calling() {
   try {
-    const resp = await apiClient.get('/api/ok')
-    //console.log('got response: %d: %s', resp.status, resp.data)
+    await apiClient.get('/api/ok')
   } catch (error) {
     if (error.response) {
       // The request was made and the server responded with a status code

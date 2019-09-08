@@ -17,11 +17,16 @@ spec:
       containers:
       - image: gcr.io/laputa/service-callee
         name: service-callee
+        env:
+        - name: RANDOM_HASH
+          value: random
+        - name: WAIT_BEFORE_SERVER_CLOSE
+          value: "0"
         readinessProbe:
           httpGet:
             path: /health
             port: 3000
-          initialDelaySeconds: 3
+          initialDelaySeconds: 0
           periodSeconds: 1
           timeoutSeconds: 1
           successThreshold: 1
