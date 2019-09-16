@@ -12,10 +12,12 @@ app.get('/api/ok', (req, res) => {
 
 app.get('/health', (req, res) => {
   if (app.locals.shutdown) {
+    console.log('unhealthy!!')
     res.status(400).end()
     return
   }
 
+  console.log('healthy :)')
   res.send('ok')
 })
 

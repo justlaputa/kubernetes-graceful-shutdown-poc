@@ -21,7 +21,7 @@ spec:
         - name: RANDOM_HASH
           value: random
         - name: WAIT_BEFORE_SERVER_CLOSE
-          value: "0"
+          value: "5"
         readinessProbe:
           httpGet:
             path: /health
