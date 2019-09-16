@@ -6,11 +6,9 @@ const CALLEE_URL = process.env.CALLEE_URL || 'http://localhost:3000'
 
 //number of request per second caller should call the callee's api
 const REQUEST_RATE = parseInt(process.env.REQUEST_RATE) || 10
-const CLIENT_TIMEOUT = parseInt(process.env.CLIENT_TIMEOUT) || 2
 
 const apiClient = axios.create({
   baseURL: CALLEE_URL,
-  timeout: CLIENT_TIMEOUT*1000,
 })
 
 function start() {
