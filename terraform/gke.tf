@@ -43,7 +43,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   provider   = "google-beta"
-  name       = "primary-node-pool"
+  name       = "primary"
   location   = "${var.gke_location}"
   cluster    = "${google_container_cluster.primary.name}"
   node_count = 3
