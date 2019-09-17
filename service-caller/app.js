@@ -4,7 +4,7 @@ const APP_NAME = 'caller'
 
 const CALLEE_URL = process.env.CALLEE_URL || 'http://localhost:3000'
 
-//number of request per second caller should call the callee's api
+//number of request per second caller will call the callee's api
 const REQUEST_RATE = parseInt(process.env.REQUEST_RATE) || 10
 
 const apiClient = axios.create({
@@ -21,7 +21,7 @@ function start() {
 
 async function calling() {
   try {
-    await apiClient.get('/api/ok')
+    await apiClient.get('/api')
   } catch (error) {
     if (error.response) {
       // The request was made and the server responded with a status code
@@ -33,8 +33,7 @@ async function calling() {
       )
     } else if (error.request) {
       // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
+      // `error.request` is an instance of http.ClientRequest in node.js
       console.error(
         'err: %s: request was made, but no response received: %s',
         error.code,
