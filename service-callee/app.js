@@ -4,7 +4,7 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 const APP_NAME = 'callee'
-const WAIT_BEFORE_SERVER_CLOSE = parseInt(process.env.WAIT_BEFORE_SERVER_CLOSE) || 0
+const WAIT_BEFORE_SERVER_CLOSE = parseInt(process.env.WAIT_BEFORE_SERVER_CLOSE) || 10
 
 app.get('/api/ok', (req, res) => {
   res.send('ok')
