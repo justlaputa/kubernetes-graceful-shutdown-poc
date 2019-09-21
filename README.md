@@ -76,4 +76,4 @@ there are 3 branches demostrate 3 cases:
 - [v2](https://github.com/justlaputa/kubernetes-graceful-shutdown-poc/tree/v2): wait for 10s before close server after receiving `SIGTERM`
 - [readiness](https://github.com/justlaputa/kubernetes-graceful-shutdown-poc/tree/readiness): add readiness probe, and wait for readiness to fail before server close.
 
-checkout these branches and run `skaffold run` to verify how they works.
+checkout these branches and run `skaffold run` to see how they work.
