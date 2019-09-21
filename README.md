@@ -1,6 +1,6 @@
 # About
 
-This repo is a prove of concept to show how to do graceful shutdown properly in Kubernetes. For the whole story, see my [medium post]()
+This repo is a prove of concept to show how to do graceful shutdown properly in Kubernetes. For the whole story, see my [medium post](https://blog.laputa.io/graceful-shutdown-in-kubernetes-85f1c8d586da)
 
 It contains:
 - Terraform code to provision a 3 node GKE cluster
@@ -72,8 +72,8 @@ Go to GCP console [Logging Viewer](https://console.cloud.google.com/logs/viewer)
 
 there are 3 branches demostrate 3 cases:
 
-- [v1](): shutdown immediately after receiving `SIGTERM`
-- [v2](): wait for 10s before close server after receiving `SIGTERM`
-- [readiness](): add readiness probe, and wait for readiness to fail before server close.
+- [v1](https://github.com/justlaputa/kubernetes-graceful-shutdown-poc/tree/v1): shutdown immediately after receiving `SIGTERM`
+- [v2](https://github.com/justlaputa/kubernetes-graceful-shutdown-poc/tree/v2): wait for 10s before close server after receiving `SIGTERM`
+- [readiness](https://github.com/justlaputa/kubernetes-graceful-shutdown-poc/tree/readiness): add readiness probe, and wait for readiness to fail before server close.
 
 checkout these branches and run `skaffold run` to verify how they works.
